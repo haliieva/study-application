@@ -2,9 +2,9 @@ import React, {FC, useRef, useState} from 'react';
 import {Animated, FlatList, View} from 'react-native';
 import slides from '../slides';
 import OnBoardingItem from './OnBoardingItem';
-import styles from '../styles';
 import Paginator from './Paginator';
 import {Items} from '../entities';
+import Wrapper from '../../Wrapper';
 
 interface Props {}
 
@@ -25,8 +25,8 @@ const OnBoarding: FC<Props> = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={{flex: 3}}>
+    <Wrapper styles={{alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1}}>
         <FlatList
           data={slides}
           renderItem={renderItem}
@@ -46,7 +46,7 @@ const OnBoarding: FC<Props> = () => {
         />
       </View>
       <Paginator data={slides} scrollX={scrollX} />
-    </View>
+    </Wrapper>
   );
 };
 

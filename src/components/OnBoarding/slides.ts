@@ -1,26 +1,22 @@
 export default [
   {
     id: '1',
-    title: 'Quick and Easy Payments',
-    description: ' ddddddddddddd ',
-    image: 'creditCard.png',
+    title: 'Share your content with people',
+    image: require('../../assets/images/car.jpg'),
   },
   {
     id: '2',
-    title: 'Smart Point of Sale',
-    description: ' ddddddddddddd ',
-    image: 'computer.png',
+    title: 'Create something new',
+    image: require('../../assets/images/flower.jpg'),
   },
   {
     id: '3',
-    title: 'Instant Notifications',
-    description: ' ddddddddddddd ',
-    image: 'notifications.png',
+    title: 'Show your life!',
+    image: require('../../assets/images/white-dog.jpg'),
   },
   {
     id: '4',
-    title: 'Customize Everything',
-    description: ' ddddddddddddd ',
-    image: 'customize.png',
+    title: 'Create core memories with us',
+    image: require('../../assets/images/dog.jpg'),
   },
 ];

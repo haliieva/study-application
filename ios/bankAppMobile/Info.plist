@@ -20,6 +20,37 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+
+	<key>GIDClientID</key>
+    <string>1000485064136-mi93v830ggsls9jnjiip8guh30m8h8jt.apps.googleusercontent.com</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.1000485064136-mi93v830ggsls9jnjiip8guh30m8h8jt</string>
+        </array>
+      </dict>
+       <dict>
+              <key>CFBundleURLSchemes</key>
+              <array>
+                <string>fb975742613392938</string>
+              </array>
+            </dict>
+    </array>
+
+    <key>FacebookAppID</key>
+    <string>975742613392938</string>
+    <key>FacebookDisplayName</key>
+    <string>bankAppMobile</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-share-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
