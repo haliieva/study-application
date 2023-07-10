@@ -1,21 +1,16 @@
 import {StyleSheet} from 'react-native';
-import {beige, blue} from '../../assets/colors';
+import {blue} from '../../assets/colors';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: beige,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   },
   buttonRow: {
     flexBasis: 100,
     marginVertical: 16,
-  },
-  image: {
-    height: '80%',
-    width: '100%',
-    resizeMode: 'contain',
   },
   title: {
     fontWeight: '800',

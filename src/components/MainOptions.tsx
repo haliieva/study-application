@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {blue, boulder, middleGrey, white} from '../assets/colors';
+import {blue, boulder, darkBlue, middleGrey, white} from '../assets/colors';
 import {isAndroid} from '../utils/common';
 
 const HeaderTitle = () => {
@@ -26,7 +26,7 @@ export const Options = () => ({
   headerTitle: () => <HeaderTitle />,
   headerRight: () => <SignOut />,
   tabBarStyle: styles.tabBarStyle,
-  tabBarActiveTintColor: blue,
+  tabBarActiveTintColor: darkBlue,
   tabBarInactiveTintColor: white,
   gestureEnabled: false,
 });
