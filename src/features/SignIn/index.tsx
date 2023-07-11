@@ -11,14 +11,17 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-import Wrapper from '../Wrapper';
+import {useDispatch} from 'react-redux';
+import Wrapper from '../../components/Wrapper';
 import {blue} from '../../assets/colors';
+import {setIsAuthenticated} from './authSlice';
 
 interface Props {}
 
 const Content: FC<Props> = () => {
   const [userName, setUserName] = useState('');
   const [token, setToken] = useState('');
+  const dispatch = useDispatch();
 
   const getResponseInfo = (error: any, result: any) => {
     if (error) {
@@ -39,6 +42,7 @@ const Content: FC<Props> = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      dispatch(setIsAuthenticated(true));
       console.log(JSON.stringify(userInfo));
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -53,21 +57,26 @@ const Content: FC<Props> = () => {
     }
   };
 
-  const onGoogleSignOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      console.log('success');
-    } catch (error: any) {
-      console.log('ERROR IS: ' + JSON.stringify(error));
-    }
+  // const onGoogleSignOut = async () => {
+  //   try {
+  //     await GoogleSignin.revokeAccess();
+  //     await GoogleSignin.signOut();
+  //     console.log('success');
+  //   } catch (error: any) {
+  //     console.log('ERROR IS: ' + JSON.stringify(error));
+  //   }
+  // };
+  const signIn = () => {
+    dispatch(setIsAuthenticated(true));
   };
+
   return (
     <Wrapper styles={{justifyContent: 'center', alignItems: 'center'}}>
       <View>
         <Text style={styles.title}>Sign in</Text>
+        <Button title="Sign in" color="blue" onPress={signIn} />
         <Button
-          title={'Sign in with Google'}
+          title="Sign in with Google"
           color="blue"
           onPress={onGoogleSignIn}
         />
@@ -77,18 +86,13 @@ const Content: FC<Props> = () => {
           color={GoogleSigninButton.Color.Light}
           onPress={onGoogleSignIn}
         />
-        <Button
-          title={'Sign out from Google'}
-          color="blue"
-          onPress={onGoogleSignOut}
-        />
+        {/*<Button*/}
+        {/*  title={'Sign out from Google'}*/}
+        {/*  color="blue"*/}
+        {/*  onPress={onGoogleSignOut}*/}
+        {/*/>*/}
       </View>
       <View>
-        {/*<Button*/}
-        {/*  title={'Sign in with Facebook'}*/}
-        {/*  color="red"*/}
-        {/*  onPress={() => {}}*/}
-        {/*/>*/}
         <LoginButton
           readPermissions={['public_profile']}
           onLoginFinished={(error, result) => {

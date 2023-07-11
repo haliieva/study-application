@@ -4,7 +4,7 @@ import slides from '../slides';
 import OnBoardingItem from './OnBoardingItem';
 import Paginator from './Paginator';
 import {Items} from '../entities';
-import Wrapper from '../../Wrapper';
+import Wrapper from '../../../components/Wrapper';
 
 interface Props {}
 

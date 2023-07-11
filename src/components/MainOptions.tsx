@@ -1,7 +1,9 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {blue, boulder, darkBlue, middleGrey, white} from '../assets/colors';
 import {isAndroid} from '../utils/common';
+import {setIsAuthenticated} from '../features/SignIn/authSlice';
 
 const HeaderTitle = () => {
   return (
@@ -12,9 +14,12 @@ const HeaderTitle = () => {
 };
 
 const SignOut = () => {
+  const dispatch = useDispatch();
+  const signOut = () => dispatch(setIsAuthenticated(false));
+
   return (
     <View style={{marginRight: 15}}>
-      <Button onPress={() => {}} title="Sign out" color={white} />
+      <Button onPress={signOut} title="Sign out" color={white} />
     </View>
   );
 };

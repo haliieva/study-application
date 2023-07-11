@@ -2,9 +2,9 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import screenNames from './screenNames';
 import {MainNavigatorParams} from './entities';
-import History from '../components/History/screen';
-import Settings from '../components/Settings/screen';
-import OnBoarding from '../components/OnBoarding/components/OnBoarding';
+import History from '../features/History/screen';
+import Settings from '../features/Settings/screen';
+import OnBoarding from '../features/OnBoarding/components/OnBoarding';
 import {Options} from '../components/MainOptions';
 
 const Tab = createBottomTabNavigator<MainNavigatorParams>();

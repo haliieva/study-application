@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import Wrapper from '../../Wrapper';
+import Wrapper from '../../../components/Wrapper';
 
 interface Props {}
 
