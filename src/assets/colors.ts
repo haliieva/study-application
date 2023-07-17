@@ -7,3 +7,4 @@ export const grey = '#BDCDD6';
 export const beige = '#ecdecc';
 export const boulder = '#7a7a7a';
 export const middleGrey = '#949494';
+export const error = '#DD3D35';

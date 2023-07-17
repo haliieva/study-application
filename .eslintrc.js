@@ -14,43 +14,42 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'import'],
   rules: {
-    "import/order":
-      ["error",
-        {
-          "groups":
-            [
-              "builtin",
-              "external",
-              "internal",
-              ["parent", "sibling"],
-              "index",
-              "object",
-              "type",
-            ],
-          "pathGroups": [
-            {
-              "pattern": "react",
-              "group": "builtin",
-              "position": "before"
-            },
-            {
-              "pattern": "react-native",
-              "group": "builtin",
-              "position": "before"
-            },
-            {
-              "pattern": "./styles",
-              "group": "index",
-              "position": "after"
-            },
-            {
-              "pattern": "**/assets",
-              "group": "sibling",
-              "position": "after"
-            }
-          ],
-          "pathGroupsExcludedImportTypes": ["react", "react-native", "styles"]
-        },
-      ]
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling'],
+          'index',
+          'object',
+          'type',
+        ],
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: 'react-native',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: './styles',
+            group: 'index',
+            position: 'after',
+          },
+          {
+            pattern: '**/assets',
+            group: 'sibling',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react', 'react-native', 'styles'],
+      },
+    ],
   },
 };
