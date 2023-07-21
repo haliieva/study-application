@@ -31,13 +31,14 @@ import AL from '../../utils/accessibilityLabels';
 import ScreenNames from '../../navigation/screenNames';
 import {initialSignInValues, permissionsList} from './utils';
 import {signInThunk} from './thunks';
+import {AppDispatch} from '../../store';
 
 const {
   signIn: {signInButtonLabel, emailInputLabel, passwordInputLabel},
 } = AL;
 
 const SignIn = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigation = useNavigation<any>();
 
   const getResponseInfo = (error: any, result: any) => {
@@ -91,7 +92,7 @@ const SignIn = () => {
   //   }
   // };
   const signIn = () => {
-    dispatch(signInThunk({username: 'mail@gmail.com', password: 'd111'}));
+    dispatch(signInThunk({email: 'mail@gmail.com', password: 'd111'}));
   };
 
   const onLoginFinished = (error: any, result: any) => {

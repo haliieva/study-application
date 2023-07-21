@@ -1,12 +1,17 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {setIsAuthenticated} from './authSlice';
 
 export const signInThunk = createAsyncThunk(
   'auth/signin',
-  async (payload, {dispatch, rejectWithValue}) => {
+  async (
+    payload: {
+      email: string;
+      password: string;
+    },
+    {dispatch, rejectWithValue},
+  ) => {
     try {
       const {email, password} = payload;
-      dispatch(setIsAuthenticated(true));
+      console.log(email);
       return;
     } catch (err) {
       return rejectWithValue(err.response.data);

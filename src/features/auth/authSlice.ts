@@ -3,6 +3,7 @@ import {signInThunk} from './thunks';
 
 export interface AuthState {
   isAuthenticated: boolean;
+  loading?: boolean;
 }
 
 const initialState: AuthState = {
@@ -31,6 +32,7 @@ export const authSlice = createSlice({
     builder.addCase(signInThunk.fulfilled, state => ({
       ...state,
       loading: false,
+      isAuthenticated: true,
     }));
     builder.addCase(signInThunk.rejected, (state, action) => ({
       ...state,
