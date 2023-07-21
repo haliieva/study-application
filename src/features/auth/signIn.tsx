@@ -1,5 +1,10 @@
-import React, {FC} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -12,19 +17,28 @@ import {
   GraphRequestManager,
 } from 'react-native-fbsdk';
 import {useDispatch} from 'react-redux';
-import {Box, Heading, HStack, VStack, Button, Text} from 'native-base';
+import {Heading, HStack, VStack, Button, Text} from 'native-base';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
+import {useNavigation} from '@react-navigation/native';
 import Wrapper from '../../components/Wrapper';
 import {blue, white} from '../../assets/colors';
 import {setIsAuthenticated, setUserData} from './authSlice';
 import Input from '../../components/Input';
 import {isTablet} from '../../utils/common';
+import {signInReviewSchema} from './validation';
+import AL from '../../utils/accessibilityLabels';
+import ScreenNames from '../../navigation/screenNames';
+import {initialSignInValues, permissionsList} from './utils';
+import {signInThunk} from './thunks';
 
-interface Props {}
+const {
+  signIn: {signInButtonLabel, emailInputLabel, passwordInputLabel},
+} = AL;
 
-const Content: FC<Props> = () => {
+const SignIn = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation<any>();
 
   const getResponseInfo = (error: any, result: any) => {
     if (error) {
@@ -77,7 +91,7 @@ const Content: FC<Props> = () => {
   //   }
   // };
   const signIn = () => {
-    dispatch(setIsAuthenticated(true));
+    dispatch(signInThunk({username: 'mail@gmail.com', password: 'd111'}));
   };
 
   const onLoginFinished = (error: any, result: any) => {
@@ -100,6 +114,10 @@ const Content: FC<Props> = () => {
     }
   };
 
+  const toSignUp = () => {
+    navigation.navigate(ScreenNames.SIGN_UP);
+  };
+
   return (
     <Wrapper styles={styles.container}>
       <HStack flexGrow={1} safeArea>
@@ -110,30 +128,48 @@ const Content: FC<Props> = () => {
           <VStack alignItems="center">
             <Heading style={styles.title}>Sign in</Heading>
           </VStack>
-          <Formik initialValues={{email: '', password: ''}} onSubmit={() => {}}>
-            {({handleChange, handleBlur, values, errors, touched}) => (
+          <Formik
+            initialValues={initialSignInValues}
+            onSubmit={signIn}
+            validationSchema={signInReviewSchema}>
+            {({
+              handleChange,
+              handleBlur,
+              values,
+              errors,
+              touched,
+              handleSubmit,
+            }) => (
               <VStack>
-                <Box>
-                  <Input
-                    name="Email"
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    error={errors.email}
-                    touched={touched.email}
-                    keyboardType={'email-address'}
-                  />
-                  <Input
-                    name="Password"
-                    value={values.password}
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    error={errors.password}
-                    touched={touched.password}
-                    secure
-                  />
-                </Box>
-                <Button color="darkBlue" mt={4} onPress={signIn}>
+                <Input
+                  name="Email"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  error={errors.email}
+                  touched={touched.email}
+                  keyboardType={'email-address'}
+                  accessibilityLabel={emailInputLabel}
+                />
+                <Input
+                  name="Password"
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  error={errors.password}
+                  touched={touched.password}
+                  secure
+                  accessibilityLabel={passwordInputLabel}
+                />
+                <Button
+                  accessibilityLabel={signInButtonLabel}
+                  color="darkBlue"
+                  mt={4}
+                  onPress={
+                    handleSubmit as unknown as (
+                      e: GestureResponderEvent,
+                    ) => void
+                  }>
                   Sign In
                 </Button>
               </VStack>
@@ -157,29 +193,23 @@ const Content: FC<Props> = () => {
           </View>
           <View>
             <LoginButton
-              permissions={['public_profile']}
+              permissions={permissionsList}
               onLoginFinished={onLoginFinished}
               onLogoutFinished={onLogout}
             />
           </View>
-          <VStack alignItems="flex-end" mt={2}>
-            <TouchableOpacity style={styles.signUpBtn} onPress={() => {}}>
-              <Text style={styles.forgotText}>Forgot password</Text>
+          <HStack alignSelf="flex-end" mt={2}>
+            <TouchableOpacity onPress={toSignUp}>
+              <Text style={styles.signUpBtn}>Sign Up</Text>
             </TouchableOpacity>
-            <HStack mt={2}>
-              <Text style={styles.text}>Are you registered?</Text>
-              <TouchableOpacity style={styles.signUpBtn} onPress={() => {}}>
-                <Text>Sign Up</Text>
-              </TouchableOpacity>
-            </HStack>
-          </VStack>
+          </HStack>
         </KeyboardAwareScrollView>
       </HStack>
     </Wrapper>
   );
 };
 
-export default Content;
+export default SignIn;
 
 const styles = StyleSheet.create({
   content: {
@@ -191,6 +221,7 @@ const styles = StyleSheet.create({
   signUpBtn: {
     fontSize: 14,
     paddingLeft: 5,
+    fontWeight: 'bold',
   },
   text: {
     color: white,

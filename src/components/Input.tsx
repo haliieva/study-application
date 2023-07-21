@@ -18,6 +18,7 @@ interface Props {
   secure?: boolean;
   error?: string;
   keyboardType?: KeyboardType;
+  accessibilityLabel?: string;
 }
 
 export default ({
@@ -29,6 +30,7 @@ export default ({
   onBlur,
   error: formikError,
   keyboardType,
+  accessibilityLabel,
 }: Props) => {
   return (
     <>
@@ -52,6 +54,7 @@ export default ({
             selectionColor: 'white',
             cursorColor: 'white',
           }}
+          accessibilityLabel={accessibilityLabel}
         />
       </Box>
       {touched && formikError && (

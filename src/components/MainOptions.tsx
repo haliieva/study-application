@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {white} from '../assets/colors';
-import {setIsAuthenticated} from '../features/SignIn/authSlice';
+import {setIsAuthenticated} from '../features/auth/authSlice';
 
 export const HeaderTitle = () => {
   return (

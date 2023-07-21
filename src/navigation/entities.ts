@@ -8,6 +8,7 @@ export type MainNavigatorParams = {
 
 export type AuthStackNavigatorParams = {
   [screenNames.SIGN_IN]: undefined;
+  [screenNames.SIGN_UP]: undefined;
 };
 
 export type RootNavigatorParams = {

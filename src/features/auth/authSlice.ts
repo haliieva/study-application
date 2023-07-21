@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {signInThunk} from './thunks';
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -21,6 +22,21 @@ export const authSlice = createSlice({
       name: payload.name,
       token: payload.id,
     }),
+  },
+  extraReducers: builder => {
+    builder.addCase(signInThunk.pending, state => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(signInThunk.fulfilled, state => ({
+      ...state,
+      loading: false,
+    }));
+    builder.addCase(signInThunk.rejected, (state, action) => ({
+      ...state,
+      loading: false,
+      authError: action.error,
+    }));
   },
 });
 
