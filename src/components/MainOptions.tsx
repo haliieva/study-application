@@ -2,7 +2,8 @@ import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {white} from '../assets/colors';
-import {setIsAuthenticated} from '../features/auth/authSlice';
+import {signOutThunk} from '../features/auth/thunks';
+import {AppDispatch} from '../store';
 
 export const HeaderTitle = () => {
   return (
@@ -13,8 +14,8 @@ export const HeaderTitle = () => {
 };
 
 export const SignOut = () => {
-  const dispatch = useDispatch();
-  const signOut = () => dispatch(setIsAuthenticated(false));
+  const dispatch = useDispatch<AppDispatch>();
+  const signOut = () => dispatch(signOutThunk());
 
   return (
     <View style={styles.signOutBtn}>

@@ -1,4 +1,4 @@
-import {signInThunk} from '../auth/thunks';
+import {signInThunk, signOutThunk} from '../auth/thunks';
 import authReducer from '../auth/authSlice';
 
 describe('Auth reducer', () => {
@@ -30,6 +30,25 @@ describe('Auth reducer', () => {
     };
     // @ts-ignore
     const result = authReducer(initialState, signInThunk.rejected(authError));
+    expect(result).toEqual(expectedState);
+  });
+
+  it('signOutThunk pending', () => {
+    const result = authReducer(initialState, signOutThunk.pending());
+    expect(result).toEqual({...initialState, loading: true});
+  });
+  it('signOutHunk fulfilled', () => {
+    const expectedState = {...initialState, loading: true};
+    const result = authReducer(expectedState, signOutThunk.fulfilled());
+    expect(result).toEqual({
+      ...expectedState,
+      loading: false,
+      isAuthenticated: false,
+    });
+  });
+  it('signOutHunk rejected', () => {
+    const expectedState = {...initialState, loading: false};
+    const result = authReducer(expectedState, signOutThunk.rejected());
     expect(result).toEqual(expectedState);
   });
 });

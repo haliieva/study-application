@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {signInThunk} from './thunks';
+import {signInThunk, signOutThunk} from './thunks';
 
 export interface AuthState {
   isAuthenticated: boolean;
@@ -38,6 +38,19 @@ export const authSlice = createSlice({
       ...state,
       loading: false,
       authError: action.error,
+    }));
+    builder.addCase(signOutThunk.pending, state => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(signOutThunk.fulfilled, state => ({
+      ...state,
+      loading: false,
+      isAuthenticated: false,
+    }));
+    builder.addCase(signOutThunk.rejected, state => ({
+      ...state,
+      loading: false,
     }));
   },
 });

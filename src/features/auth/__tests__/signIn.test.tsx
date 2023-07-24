@@ -1,16 +1,23 @@
 import React from 'react';
-import {fireEvent, waitFor} from '@testing-library/react-native';
+import {cleanup, fireEvent, waitFor} from '@testing-library/react-native';
 import SignIn from '../signIn';
 import {render} from '../../../../jest/test.utils';
 import AL from '../../../utils/accessibilityLabels';
 import {mockedNavigate} from '../../../../jest/jest.setup';
 import screenNames from '../../../navigation/screenNames';
+import * as thunks from '../thunks';
 
 const {
   signIn: {signInButtonLabel, emailInputLabel, passwordInputLabel},
 } = AL;
 
 describe('auth screen test', () => {
+  afterEach(() => cleanup());
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+  thunks.signInThunk = jest.fn();
+
   it('renders component', () => {
     render(<SignIn />);
   });
@@ -71,11 +78,10 @@ describe('auth screen test', () => {
     const email = getByLabelText(emailInputLabel);
     const password = getByLabelText(passwordInputLabel);
     const btn = getByLabelText(signInButtonLabel);
-
-    const credentials = {password: 'password!', username: 'valid@email.com'};
+    const credentials = {email: 'valid@email.com', password: 'password!'};
 
     await waitFor(() => {
-      fireEvent.changeText(email, {target: {value: credentials.username}});
+      fireEvent.changeText(email, {target: {value: credentials.email}});
     });
     await waitFor(() => {
       fireEvent.changeText(password, {
@@ -90,7 +96,9 @@ describe('auth screen test', () => {
 
     expect(emailIsInvalidError).toBeNull();
     expect(passwordIsRequiredError).toBeNull();
-    expect(thunks.signInThunk).toHaveBeenCalledWith(credentials);
+    await waitFor(() =>
+      expect(thunks.signInThunk).toHaveBeenCalledWith(credentials),
+    );
     unmount();
   });
 });
