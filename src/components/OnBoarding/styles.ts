@@ -1,38 +1,28 @@
 import {StyleSheet} from 'react-native';
+import {blue} from '../../assets/colors';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   },
   buttonRow: {
     flexBasis: 100,
     marginVertical: 16,
   },
-  image: {
-    height: 150,
-    width: '100%',
-    resizeMode: 'contain',
-    backgroundColor: 'green'
-  },
   title: {
     fontWeight: '800',
     fontSize: 28,
-    marginBottom: 10,
-    color: '#493d8a',
+    color: blue,
     textAlign: 'center',
-  },
-  description: {
-    fontWeight: '300',
-    color: '#62656b',
-    textAlign: 'center',
-    paddingHorizontal: 64,
+    marginHorizontal: 30,
   },
   dot: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#493d8a',
+    backgroundColor: blue,
     marginHorizontal: 8,
   },
 });

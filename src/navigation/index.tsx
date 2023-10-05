@@ -8,6 +8,7 @@ import {navigationRef} from '../services/navigationService';
 import screenNames from './screenNames';
 import MainStack from './MainStack';
 import {RootNavigatorParams} from './entities';
+import AuthStack from './AuthStack';
 
 const Stack = createStackNavigator<RootNavigatorParams>();
 
@@ -20,14 +21,24 @@ const Navigation: React.FC = (): ReactElement => {
     RNBootSplash.hide({fade: true});
   };
 
+  const isAuthenticated = true;
+
   return (
     <NavigationContainer ref={navigationRef} onReady={onReady}>
       <Stack.Navigator>
-        <Stack.Screen
-          name={screenNames.MAIN}
-          options={{gestureEnabled: false, headerShown: false}}
-          component={MainStack}
-        />
+        {isAuthenticated ? (
+          <Stack.Screen
+            name={screenNames.MAIN}
+            options={{gestureEnabled: false, headerShown: false}}
+            component={MainStack}
+          />
+        ) : (
+          <Stack.Screen
+            name={screenNames.AUTH}
+            options={{gestureEnabled: false, headerShown: false}}
+            component={AuthStack}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

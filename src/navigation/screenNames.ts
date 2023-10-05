@@ -1,7 +1,9 @@
 enum screenNames {
   DASHBOARD = 'dashboard',
-  HISTORY = 'history',
+  DOCUMENTS = 'documents',
   SETTINGS = 'settings',
   MAIN = 'main',
+  AUTH = 'auth',
+  SIGN_IN = 'singIn',
 }
 export default screenNames;
