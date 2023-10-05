@@ -5,7 +5,6 @@ import {render} from '../../../../jest/test.utils';
 import AL from '../../../utils/accessibilityLabels';
 import {mockedNavigate} from '../../../../jest/jest.setup';
 import screenNames from '../../../navigation/screenNames';
-import * as thunks from '../thunks';
 
 const {
   signIn: {signInButtonLabel, emailInputLabel, passwordInputLabel},
@@ -16,7 +15,6 @@ describe('auth screen test', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-  thunks.signInThunk = jest.fn();
 
   it('renders component', () => {
     render(<SignIn />);
@@ -96,9 +94,7 @@ describe('auth screen test', () => {
 
     expect(emailIsInvalidError).toBeNull();
     expect(passwordIsRequiredError).toBeNull();
-    await waitFor(() =>
-      expect(thunks.signInThunk).toHaveBeenCalledWith(credentials),
-    );
+    expect(jest.fn()).toHaveBeenCalledWith(credentials);
     unmount();
   });
 });

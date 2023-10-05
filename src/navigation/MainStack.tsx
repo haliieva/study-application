@@ -5,7 +5,7 @@ import screenNames from './screenNames';
 import {MainNavigatorParams} from './entities';
 import History from '../features/History/screen';
 import Settings from '../features/Settings/screen';
-import OnBoarding from '../features/OnBoarding/components/OnBoarding';
+import OnBoarding from '../features/Main/components/OnBoarding';
 import {HeaderTitle, SignOut} from '../components/MainOptions';
 import {blue, boulder, darkBlue, middleGrey, white} from '../assets/colors';
 import {isAndroid} from '../utils/common';

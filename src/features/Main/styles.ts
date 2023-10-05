@@ -3,10 +3,10 @@ import {blue} from '../../assets/colors';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
+    // flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
+    // backgroundColor: 'blue',
   },
   buttonRow: {
     flexBasis: 100,

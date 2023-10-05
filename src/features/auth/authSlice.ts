@@ -1,13 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {signInThunk, signOutThunk} from './thunks';
+import {getImages, signInThunk, signOutThunk} from './thunks';
 
 export interface AuthState {
   isAuthenticated: boolean;
   loading?: boolean;
+  images?: Array<any>;
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
 };
 
 export const authSlice = createSlice({
@@ -51,6 +52,21 @@ export const authSlice = createSlice({
     builder.addCase(signOutThunk.rejected, state => ({
       ...state,
       loading: false,
+    }));
+    builder.addCase(getImages.pending, state => ({
+      ...state,
+      loading: true,
+      images: [],
+    }));
+    builder.addCase(getImages.fulfilled, (state, action) => ({
+      ...state,
+      loading: false,
+      images: action.payload,
+    }));
+    builder.addCase(getImages.rejected, state => ({
+      ...state,
+      loading: false,
+      images: [],
     }));
   },
 });
