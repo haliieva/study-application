@@ -4,11 +4,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import screenNames from './screenNames';
 import {MainNavigatorParams} from './entities';
 import History from '../features/History/screen';
-import Settings from '../features/Settings/screen';
 import OnBoarding from '../features/Main/components/OnBoarding';
 import {HeaderTitle, SignOut} from '../components/MainOptions';
 import {blue, boulder, darkBlue, middleGrey, white} from '../assets/colors';
 import {isAndroid} from '../utils/common';
+import ReanimatedSquare from '../features/Settings/screen/ReanimatedSquare';
 
 const Tab = createBottomTabNavigator<MainNavigatorParams>();
 
@@ -28,7 +28,7 @@ const MainStack = () => {
       }}>
       <Tab.Screen name={screenNames.DASHBOARD} component={OnBoarding} />
       <Tab.Screen name={screenNames.DOCUMENTS} component={History} />
-      <Tab.Screen name={screenNames.SETTINGS} component={Settings} />
+      <Tab.Screen name={screenNames.SETTINGS} component={ReanimatedSquare} />
     </Tab.Navigator>
   );
 };
