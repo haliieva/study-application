@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Provider} from 'react-redux';
