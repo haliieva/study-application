@@ -1,17 +1,26 @@
-import React, {FC} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {FC, useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {blue, grey} from '../../../assets/colors';
 import Wrapper from '../../../components/Wrapper';
+import ListItem from '../components/ListItem';
+
+const TASKS = [{name: '1'}, {name: '2'}, {name: '3'}, {name: '4'}, {name: '5'}];
 
 interface Props {}
 
 const History: FC<Props> = () => {
+  const [tasks, setTasks] = useState(TASKS);
+
   return (
     <Wrapper styles={{alignItems: 'center'}}>
       <View style={styles.documentsContainer}>
-        <Text style={styles.title}>Documents management</Text>
+        <Text style={styles.title}>Tasks</Text>
       </View>
-      <View style={styles.card} />
+      <ScrollView contentContainerStyle={{flex: 1}}>
+        {tasks.map((task, index) => (
+          <ListItem key={index} task={task} />
+        ))}
+      </ScrollView>
     </Wrapper>
   );
 };
@@ -30,10 +39,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   card: {
-    height: '80%',
-    width: '93%',
-    backgroundColor: grey,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
   },
 });

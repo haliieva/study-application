@@ -1,5 +1,12 @@
-import React, {FC, useEffect, useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import React, {FC, useCallback, useEffect, useState} from 'react';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Animated, {
   Easing,
   FadeInLeft,
@@ -11,16 +18,22 @@ import Animated, {
   SlideInUp,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withRepeat,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import {useFocusEffect} from '@react-navigation/native';
 import {Button, Heading, Text} from 'native-base';
+import {TapGestureHandler} from 'react-native-gesture-handler';
 import Wrapper from '../../../components/Wrapper';
 import {blue, darkBlue} from '../../../assets/colors';
 
 interface Props {}
+
+const {width: SIZE} = Dimensions.get('window');
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const ReanimatedSquare: FC<Props> = () => {
   const size = 100;
@@ -95,6 +108,24 @@ const ReanimatedSquare: FC<Props> = () => {
     offsetX.value = withRepeat(withSpring(-offset.value), -1, true);
   }, []);
 
+  const heartScale = useSharedValue(0);
+
+  const heartStyles = useAnimatedStyle(() => ({
+    transform: [
+      {
+        scale: Math.max(heartScale.value, 0),
+      },
+    ],
+  }));
+
+  const onDoubleTapHeart = useCallback(() => {
+    heartScale.value = withSpring(1, undefined, finished => {
+      if (finished) {
+        heartScale.value = withDelay(500, withSpring(0));
+      }
+    });
+  }, []);
+
   return (
     <Wrapper>
       <Animated.View entering={SlideInLeft}>
@@ -111,27 +142,50 @@ const ReanimatedSquare: FC<Props> = () => {
       {/*    style={[styles.box, animatedStyles]}*/}
       {/*  />*/}
       {/*</View>*/}
-      <View style={styles.container}>
-        <Animated.View style={[styles.box, animatedStyles]} />
-        {/*<FlatList*/}
-        {/*  style={styles.listContainer}*/}
-        {/*  keyExtractor={item => item.name}*/}
-        {/*  data={items}*/}
-        {/*  renderItem={renderItem}*/}
-        {/*/>*/}
-        {/*<View style={styles.buttonsContainer}>*/}
-        {/*  <View style={{flexDirection: 'row'}}>*/}
-        {/*    <Button _text={{color: 'white'}} onPress={addItem}>*/}
-        {/*      Add*/}
-        {/*    </Button>*/}
-        {/*    <Button _text={{color: 'white'}} onPress={removeItem} ml={2}>*/}
-        {/*      Remove*/}
-        {/*    </Button>*/}
-        {/*  </View>*/}
-        {/*</View>*/}
-      </View>
-      <View style={styles.container2}>
-        <Animated.View style={[styles.box, animatedStyles2]} />
+      {/*<View style={styles.container}>*/}
+      {/*  <Animated.View style={[styles.box, animatedStyles]} />*/}
+      {/*<FlatList*/}
+      {/*  style={styles.listContainer}*/}
+      {/*  keyExtractor={item => item.name}*/}
+      {/*  data={items}*/}
+      {/*  renderItem={renderItem}*/}
+      {/*/>*/}
+      {/*<View style={styles.buttonsContainer}>*/}
+      {/*  <View style={{flexDirection: 'row'}}>*/}
+      {/*    <Button _text={{color: 'white'}} onPress={addItem}>*/}
+      {/*      Add*/}
+      {/*    </Button>*/}
+      {/*    <Button _text={{color: 'white'}} onPress={removeItem} ml={2}>*/}
+      {/*      Remove*/}
+      {/*    </Button>*/}
+      {/*  </View>*/}
+      {/*</View>*/}
+      {/*</View>*/}
+      {/*<View style={styles.container2}>*/}
+      {/*  <Animated.View style={[styles.box, animatedStyles2]} />*/}
+      {/*</View>*/}
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <TapGestureHandler numberOfTaps={2} onActivated={onDoubleTapHeart}>
+          <Animated.View>
+            <ImageBackground
+              source={require('../../../assets/images/car.jpg')}
+              style={styles.image}>
+              <AnimatedImage
+                source={require('../../../assets/images/heart.png')}
+                style={[
+                  styles.image,
+                  {
+                    shadowOffset: {width: 0, height: 20},
+                    shadowOpacity: 0.5,
+                    shadowRadius: 20,
+                  },
+                  heartStyles,
+                ]}
+                resizeMode={'center'}
+              />
+            </ImageBackground>
+          </Animated.View>
+        </TapGestureHandler>
       </View>
     </Wrapper>
   );
@@ -175,5 +229,9 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     marginBottom: 30,
     alignItems: 'center',
+  },
+  image: {
+    height: SIZE,
+    width: SIZE,
   },
 });
