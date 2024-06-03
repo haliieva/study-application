@@ -1,1 +1,1 @@
-# study-application
+# Project for testing new features and technologies. 
